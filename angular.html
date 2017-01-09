@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<script src="./js/angular.min.js"></script>
+<script type="text/javascript" src="./js/ui-grid.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="./css/ui-grid.min.css" />
+<link rel="stylesheet" type="text/css" href="./css/styles.css" />
+<script src="./controllers/myCtrl.js"></script>
+
+
+<body>
+    <form name="myForm" ng-app="myApp" ng-controller="myCtrl">
+        <div>
+            Query: <textarea class="txtArea" name="frm_query" placeholder="Paste the SQL Query"  ng-model="models.query" required></textarea>
+            <span ng-show="models.isClicked && myForm.frm_query.$error.required">Enter the Sql Query</span>
+            </br>
+             </br>
+            <button name="frm_btn" ng-click="parseParams()">Parse the Params</button>
+
+            </br>
+            <h3>Parsed Params</h3>
+
+            <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-edit class="grid"></div>
+        </div>
+        <div>
+            <button name="frm_btn" ng-click="updateQuery()">Update the Params</button>
+            </br>
+            
+        </div>
+        <div>
+        <textarea class="txtArea" name="frm_updatedQuery" readonly ng-model="models.updatedQuery"></textarea>
+
+        </div>
+    </form>
+</body>
+
+</html>
