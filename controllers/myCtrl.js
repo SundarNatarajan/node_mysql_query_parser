@@ -6,10 +6,12 @@ app.controller('myCtrl', function ($scope) {
 
     //npm dependencies
     const _ = require('lodash');
+    const fs = require('fs');
 
     $scope.models = {
         isClicked: false,
-        query: `Select * from Table`,
+        isQuerySaveAction: false,
+        query: `Select * from Table  $P{Sundar}`,
         returnedParams: null
     }
 
@@ -33,11 +35,12 @@ app.controller('myCtrl', function ($scope) {
 
     $scope.parseParams = function () {
         $scope.models.isClicked = true;
-        const query = $scope.models.query;
+        if ($scope.models.query) {
+            const query = $scope.models.query;
 
-        const uniqueregex = _.uniq(query.match(config.params_pattern))
-        $scope.gridOptions.data = arrayToObj(uniqueregex);
-
+            const uniqueregex = _.uniq(query.match(config.params_pattern))
+            $scope.gridOptions.data = arrayToObj(uniqueregex);
+        }
         // $scope.gridOptions.data = $scope.parser($scope.models.query);
     }
 
@@ -57,9 +60,9 @@ app.controller('myCtrl', function ($scope) {
 
             if (item.type == 2) //number
                 formed[item.name] = item.value
-            else if(item.type == 1) //string
+            else if (item.type == 1) //string
                 formed[item.name] = `'${item.value}'`
-            else{
+            else {
                 formed[item.name] = null;
             }
             return formed
@@ -88,6 +91,37 @@ app.controller('myCtrl', function ($scope) {
 
     $scope.parser = function (query) {
         return [{ name: "name1", value: 'null' }, { name: "name2", value: 'null' }];
+    }
+
+    $scope.saveQuery = function () {
+        $scope.models.isQuerySaveAction = true;
+        if ($scope.models.currentQueryPath && $scope.models.currentQueryFile && $scope.models.updatedQuery) {
+            if (fs.existsSync($scope.models.currentQueryPath)) {
+                fs.open(`${$scope.models.currentQueryPath}\\${$scope.models.currentQueryFile}.sql`, 'wx', (err, fd) => {
+                    if (err) {
+                        if (err.code === "EEXIST") {
+                            $scope.models.error = `${$scope.models.currentQueryFile}.sql already exists`;
+                            return;
+                        } else {
+                            $scope.models.error = err;
+                        }
+                    } else {
+                        fs.writeFile(`${$scope.models.currentQueryPath}\\${$scope.models.currentQueryFile}.sql`, $scope.models.updatedQuery, function (er) {
+                            if (err) {
+                                $scope.models.error = err;
+                            } else {
+                                $scope.models.success = 'File Saved Successfully';
+                            }
+                        })
+                    }
+
+
+                });
+
+            } else {
+                $scope.models.error = `Check the path:${$scope.models.currentQueryPath} exists are not `
+            }
+        }
     }
     /*node functions*/
 
