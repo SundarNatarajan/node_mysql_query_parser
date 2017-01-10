@@ -23,7 +23,8 @@ app.controller('myCtrl', function ($scope) {
             editableCellTemplate: 'ui-grid/dropdownEditor',
             cellFilter: 'mapDataTypes', editDropdownValueLabel: 'dataTypes', editDropdownOptionsArray: [
                 { id: 1, dataTypes: 'string' },
-                { id: 2, dataTypes: 'number' }
+                { id: 2, dataTypes: 'number' },
+                { id: 3, dataTypes: 'null' }
             ]
         }, {
             field: "value", width: '30%', name: 'Value', enableCellEdit: true
@@ -45,7 +46,7 @@ app.controller('myCtrl', function ($scope) {
         const formedObject = [];
         var keyVal = _.reduce(keys, function (formed, item) {
             //formed[item] = null
-            formedObject.push({ name: item, value: null, type: null })
+            formedObject.push({ name: item, value: null, type: 3 })
             //return formed
         }, {});
         return formedObject;
@@ -93,7 +94,9 @@ app.controller('myCtrl', function ($scope) {
 }).filter('mapDataTypes', function () {
     var dataTypesHash = {
         1: 'string',
-        2: 'number'
+        2: 'number',
+        3: 'null'
+
     };
 
     return function (input) {
