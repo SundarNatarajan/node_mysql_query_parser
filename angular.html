@@ -9,12 +9,12 @@
 
 
 <body>
-    <form name="myForm" ng-app="myApp" ng-controller="myCtrl">
+    <!--<form name="myForm" ng-app="myApp" ng-controller="myCtrl">
         <div>
-            Query: <textarea class="txtArea" name="frm_query" placeholder="Paste the SQL Query"  ng-model="models.query" required></textarea>
+            Query: <textarea class="txtArea" name="frm_query" placeholder="Paste the SQL Query" ng-model="models.query" required></textarea>
             <span ng-show="models.isClicked && myForm.frm_query.$error.required">Enter the Sql Query</span>
             </br>
-             </br>
+            </br>
             <button name="frm_btn" ng-click="parseParams()">Parse the Params</button>
 
             </br>
@@ -25,21 +25,47 @@
         <div>
             <button name="frm_btn" ng-click="updateQuery()">Update the Params</button>
             </br>
-            
+
         </div>
         <div>
-        <textarea class="txtArea" name="frm_updatedQuery" readonly ng-model="models.updatedQuery" required></textarea>
-        <input type="text" name="pathName" ng-model="models.currentQueryPath" required/>
-        <input type="text" name="fileName" ng-model="models.currentQueryFile" required/>
-        <span ng-show="models.isQuerySaveAction && (myForm.frm_updatedQuery.$error.required || myForm.pathName.$error.required || myForm.fileName.$error.required)">Update the Params / Enter the Sql Query file details</span>
-        </br>
-                <button name="frm_btn" ng-click="saveQuery()">Save Query</button>
-                
+            <textarea class="txtArea" name="frm_updatedQuery" readonly ng-model="models.updatedQuery" required></textarea>
+            
+        </div>
+    </form>-->
+
+    <form name="myForm" ng-app="myApp" ng-controller="myCtrl">
+        <div>
+            Query: <textarea class="txtArea" name="frm_query" placeholder="Paste the SQL Query" ng-model="models.query" required></textarea>
+            <span class="error" ng-show="models.isClicked && myForm.frm_query.$error.required">Enter the Sql Query</span>
             </br>
-            {{models.error}}
-            {{models.success}}
+            </br>
+            <button name="frm_btn" class="frm_btn" ng-click="parseParams()">Parse the Params</button>
+
+            </br>
+            <h3>Parsed Params</h3>
+
+            <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-edit class="grid"></div>
+        </div>
+        <div>
+            <button name="frm_btn" class="frm_btn" ng-click="updateQuery()">Update the Params</button>
+            </br>
+
+        </div>
+        <div>
+            <textarea class="txtArea" name="frm_updatedQuery" readonly ng-model="models.updatedQuery"></textarea>
+
+            <input type="text" name="pathName" ng-model="models.currentQueryPath" required/>
+            <input type="text" name="fileName" ng-model="models.currentQueryFile" required/>
+            <span ng-show="models.isQuerySaveAction && (myForm.frm_updatedQuery.$error.required || myForm.pathName.$error.required || myForm.fileName.$error.required)">Update the Params / Enter the Sql Query file details</span>
+            </br>
+            <button name="frm_btn" ng-click="saveQuery()">Save Query</button>
+
+            </br>
+            {{models.error}} {{models.success}}
+
         </div>
     </form>
+
 </body>
 
 </html>
