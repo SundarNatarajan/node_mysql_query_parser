@@ -9,30 +9,6 @@
 
 
 <body>
-    <!--<form name="myForm" ng-app="myApp" ng-controller="myCtrl">
-        <div>
-            Query: <textarea class="txtArea" name="frm_query" placeholder="Paste the SQL Query" ng-model="models.query" required></textarea>
-            <span ng-show="models.isClicked && myForm.frm_query.$error.required">Enter the Sql Query</span>
-            </br>
-            </br>
-            <button name="frm_btn" ng-click="parseParams()">Parse the Params</button>
-
-            </br>
-            <h3>Parsed Params</h3>
-
-            <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-edit class="grid"></div>
-        </div>
-        <div>
-            <button name="frm_btn" ng-click="updateQuery()">Update the Params</button>
-            </br>
-
-        </div>
-        <div>
-            <textarea class="txtArea" name="frm_updatedQuery" readonly ng-model="models.updatedQuery" required></textarea>
-            
-        </div>
-    </form>-->
-
     <form name="myForm" ng-app="myApp" ng-controller="myCtrl">
         <div>
             Query: <textarea class="txtArea" name="frm_query" placeholder="Paste the SQL Query" ng-model="models.query" required></textarea>
@@ -44,7 +20,7 @@
             </br>
             <h3>Parsed Params</h3>
 
-            <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-edit class="grid"></div>
+            <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-edit ui-grid-cellNav class="grid"></div>
         </div>
         <div>
             <button name="frm_btn" class="frm_btn" ng-click="updateQuery()">Update the Params</button>
