@@ -4,7 +4,7 @@ myApp.controller('aboutController', ['$scope', '$http', function ($scope, $http)
     /*   const aboun = path.join(__dirname,'node','about.js')
      console.log(aboun)*/
     const about = require(path.join(__dirname, 'node', 'about.js'))
-    $scope.aboutText = 'Hi Text from controller'
+    $scope.aboutText = 'Hi Text from controllevmdsnvsmnr'
 
     $scope.models = {
         queryPath: '',

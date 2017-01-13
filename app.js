@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router','ui.grid', 'ui.grid.edit', 'ui.grid.pagination']);
+var myApp = angular.module('myApp', ['ui.router','ui.grid','ui.grid.cellNav', 'ui.grid.edit', 'ui.grid.pagination']);
 
 myApp.config(function($stateProvider, $urlRouterProvider) {
     

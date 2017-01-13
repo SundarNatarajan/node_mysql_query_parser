@@ -10,7 +10,7 @@ module.exports = {
             fs.readdir(inputPath, (err, files) => {
                 const formedObject = [];
                 var keyVal = _.reduce(files, function (formed, item) {
-                    formedObject.push({ folder: inputPath, file: item, isSelected: true })
+                    formedObject.push({ folder: inputPath, file: item, isSelected: 1 })
                 }, {});
                 callback(null,formedObject);
             })

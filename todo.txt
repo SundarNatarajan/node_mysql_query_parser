@@ -1,0 +1,3 @@
+home page focus poit after parsing should be on grid
+
+After update params should be on output test area
