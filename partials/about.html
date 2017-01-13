@@ -1,1 +1,18 @@
+<!--form the json based using ui-grid for processing mysql job-->
+
 <p>About HTML {{aboutText}} </p>
+
+<form name="myForm">
+    <p>Choose the sql files folder and based on that json will be formed with folder, filename</p>
+    <input type="text" name="pathName" ng-model="models.queryPath" required/> 
+    <span ng-show="models.isFetchAction && (myForm.pathName.$error.required)">Mention the Query path</span>
+    </br>
+
+    <button name="frm_btn" ng-click="fetchQuery()">Fetch Query</button>
+
+    <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-edit ui-grid-cellNav class="grid"></div>
+    <button ng-disabled="!models.enableMaster" name='btn_addToMaster' ng-click="addToMaster()">Add To Master</button>
+
+    </br>
+    <button name='btn_addToMaster' ng-click="saveJob()">Save Job</button>
+</form>
