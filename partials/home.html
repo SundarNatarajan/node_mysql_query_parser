@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-<script src="./js/angular.min.js"></script>
-<script type="text/javascript" src="./js/ui-grid.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="./css/ui-grid.min.css" />
-<link rel="stylesheet" type="text/css" href="./css/styles.css" />
-<script src="./controllers/myCtrl.js"></script>
-
-
-<body>
-    <form name="myForm" ng-app="myApp" ng-controller="myCtrl">
+<div>
+    <form name="myForm">
         <div>
             Query: <textarea class="txtArea" name="frm_query" placeholder="Paste the SQL Query" ng-model="models.query" required></textarea>
             <span class="error" ng-show="models.isClicked && myForm.frm_query.$error.required">Enter the Sql Query</span>
@@ -41,7 +31,4 @@
 
         </div>
     </form>
-
-</body>
-
-</html>
+</div>
