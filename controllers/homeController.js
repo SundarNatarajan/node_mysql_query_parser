@@ -7,13 +7,16 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
     const fs = require('fs');
     const path = require('path')
     const about = require(path.join(__dirname, 'node', 'about.js'))
+    const cjson = require('cjson')
+    const jobPath = path.join(__dirname, 'jobs')
 
     $scope.models = {
         isClicked: false,
         isQuerySaveAction: false,
         query: `Select * from Table  $P{Sundar} $P{mandatory} $P{filter}`,
         returnedParams: null,
-        combinationPath: (path.join(__dirname, 'combinations.json'))
+        combinationPath: (path.join(__dirname, 'combinations.json')),
+        jobName: ''
     }
 
     $scope.gridOptions = {
@@ -120,10 +123,10 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
         if ($scope.models.combinations) {
             console.log($scope.models.combinationPath)
             fs.readFile($scope.models.combinationPath, function (err, fileContents) {
-                let res =[]
+                let res = []
                 res = res.concat(fileContents)
                 //const combinationsFormed = Array.isArray(fileContents) ? fileContents : [fileContents]
-                
+
                 res = res.concat([$scope.models.combinations])
 
                 fs.writeFile($scope.models.combinationPath, res, function (er) {
@@ -165,6 +168,27 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
             } else {
                 $scope.models.error = `Check the path:${$scope.models.currentQueryPath} exists are not `
             }
+        }
+    }
+
+    $scope.saveJob = function () {
+        if ($scope.models.combinations && $scope.models.jobName) {
+            console.log(`${jobPath}\\${$scope.models.jobName}.json`)
+            fs.readFile(`${jobPath}\\${$scope.models.jobName}.json`, function (err, fileContents) {
+                let jobDetails = null;
+                if (err) {
+                    jobDetails = []
+                } else {
+                    jobDetails = cjson.load(`${jobPath}\\${$scope.models.jobName}.json`)
+                }
+                jobDetails.push(JSON.parse($scope.models.combinations))
+
+                fs.writeFile(`${jobPath}\\${$scope.models.jobName}.json`, JSON.stringify(jobDetails), function (er) {
+                    if (!err) {
+                        console.log('Job saved Successfully')
+                    }
+                })
+            })
         }
     }
     /*node functions*/

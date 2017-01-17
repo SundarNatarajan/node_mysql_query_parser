@@ -6,3 +6,6 @@ After update params should be on output test area
 #
 electron-packager C:\Users\Sundar\Downloads\Compressed\creating-your-first-desktop-app-with-electron testapp --platform=win32
 electron-packager C:\Users\Sundar\Downloads\Compressed\creating-your-first-desktop-app-with-electron testapp
+
+
+$scope.models.jobName
