@@ -27,7 +27,7 @@ module.exports = {
     combinations: function (arr) {
         return
     },
-    getCombinations: function (filteredData) {
+    getCombinations: function (filteredData, isMatrixrequested) {
         const arr = [], cmb1 = []
         function formVal(type, value) {
             if (type == 2)
@@ -43,12 +43,16 @@ module.exports = {
                 value: formVal(item.type, item.value)
             })
         })
-        const cmb = Combinatorics.power(arr)
-        cmb.forEach(function (a) {
-            cmb1.push(a);
-        });
-        console.log(JSON.stringify(cmb1))
-        return cmb1
+        if (isMatrixrequested) {
+            const cmb = Combinatorics.power(arr)
+            cmb.forEach(function (a) {
+                cmb1.push(a);
+            });
+            console.log(JSON.stringify(cmb1))
+            return cmb1
+        } else {
+            return arr
+        }
     },
     concat: _.concat,
     uniq: _.uniq,

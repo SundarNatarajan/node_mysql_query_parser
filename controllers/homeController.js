@@ -90,8 +90,9 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
     $scope.getCombinations = function () {
         //const filteredData = $filter($scope.gridOptions.data)(filterType,'filter')
         const filteredData = $filter('filter')($scope.gridOptions.data, { filterType: 1 })
-        const defaultFilter = $filter('filter')($scope.gridOptions.data, { filterType: 2 })
-        const combinatedFilters = about.getCombinations(filteredData)
+        const mandatoryFilters = $filter('filter')($scope.gridOptions.data, { filterType: 2 })
+        const combinatedFilters = about.getCombinations(filteredData, true)
+        const defaultFilter = about.getCombinations(mandatoryFilters)
         var res = [];
         combinatedFilters.forEach(function (it) {
             res.push(it.concat(defaultFilter))
