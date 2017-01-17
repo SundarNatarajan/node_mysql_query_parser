@@ -13,13 +13,22 @@
             <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-edit ui-grid-cellNav class="grid"></div>
         </div>
         <div>
-            <button name="frm_btn" class="frm_btn" ng-click="updateQuery()">Update the Params</button>
+            <textarea class="txtArea" name="frm_combinations" readonly ng-model="models.combinations"></textarea>
             </br>
+            <button name="frm_btn" class="frm_btn" ng-click="getCombinations()">Get the combinations</button>
+        </div>
 
+        <div>
+            <button name="frm_btn" ng-click="saveCombination()">Save Combination</button>
+            </br>
         </div>
         <div>
-            <textarea class="txtArea" name="frm_updatedQuery" readonly ng-model="models.updatedQuery"></textarea>
-
+            <textarea class="txtArea" name="frm_updatedQuery" readonly ng-model="models.updatedQuery" required></textarea>
+            <button name="frm_btn" class="frm_btn" ng-click="updateQuery()">Update the Params</button>
+            </br>
+        </div>
+        <div>
+            </br>
             <input type="text" name="pathName" ng-model="models.currentQueryPath" required/>
             <input type="text" name="fileName" ng-model="models.currentQueryFile" required/>
             <span ng-show="models.isQuerySaveAction && (myForm.frm_updatedQuery.$error.required || myForm.pathName.$error.required || myForm.fileName.$error.required)">Update the Params / Enter the Sql Query file details</span>
@@ -27,8 +36,10 @@
             <button name="frm_btn" ng-click="saveQuery()">Save Query</button>
 
             </br>
-            {{models.error}} {{models.success}}
-
         </div>
+        </br>
+        {{models.error}}
+        </br>
+        {{models.success}}
     </form>
 </div>
