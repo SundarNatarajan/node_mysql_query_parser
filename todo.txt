@@ -7,5 +7,13 @@ After update params should be on output test area
 electron-packager C:\Users\Sundar\Downloads\Compressed\creating-your-first-desktop-app-with-electron testapp --platform=win32
 electron-packager C:\Users\Sundar\Downloads\Compressed\creating-your-first-desktop-app-with-electron testapp
 
+electron-packager E:\ubuntu\Projects\myproject\electron\node_mysql_query_parser node_mysql_query_parser --platform=win32
+
 
 $scope.models.jobName
+
+
+https://github.com/mainyaa/gulp-electron
+
+
+https://github.com/szwacz/electron-boilerplate/blob/master/package.json

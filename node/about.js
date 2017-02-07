@@ -38,10 +38,10 @@ module.exports = {
                 return `null`
         }
         _.forEach(filteredData, function (item) {
-            arr.push({
+            arr.push(JSON.parse(JSON.stringify({
                 column: item.column,
                 value: formVal(item.type, item.value)
-            })
+            })))
         })
         if (isMatrixrequested) {
             const cmb = Combinatorics.power(arr)
