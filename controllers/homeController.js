@@ -23,9 +23,9 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
         enableColumnMenus: false,
         paginationPageSizes: [25, 50, 75],
         paginationPageSize: 10,
-        columnDefs: [{ field: "column", cellClass: 'red', width: '20%', name: 'Column', enableCellEdit: false },
+        columnDefs: [{ field: "column", cellClass: 'red', width: '50%', name: 'Column', enableCellEdit: false },
         {
-            field: "type", width: '20%', name: 'Type', enableCellEdit: true,
+            field: "type", width: '10%', name: 'Type', enableCellEdit: true,
             editableCellTemplate: 'ui-grid/dropdownEditor',
             cellFilter: 'mapDataTypes', editDropdownValueLabel: 'dataTypes', editDropdownOptionsArray: [
                 { id: 1, dataTypes: 'string' },
@@ -33,9 +33,9 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
                 { id: 3, dataTypes: 'null' }
             ]
         }, {
-            field: "value", width: '20%', name: 'Value', enableCellEdit: true
+            field: "value", width: '30%', name: 'Value', enableCellEdit: true
         }, {
-            field: "filterType", width: '20%', name: 'FilterType', enableCellEdit: true,
+            field: "filterType", width: '10%', name: 'FilterType', enableCellEdit: true,
             editableCellTemplate: 'ui-grid/dropdownEditor',
             cellFilter: 'mapType', editDropdownValueLabel: 'selection', editDropdownOptionsArray: [
                 { id: 1, selection: 'filter' },
@@ -94,14 +94,17 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
         //const filteredData = $filter($scope.gridOptions.data)(filterType,'filter')
         const filteredData = $filter('filter')($scope.gridOptions.data, { filterType: 1 })
         const mandatoryFilters = $filter('filter')($scope.gridOptions.data, { filterType: 2 })
-        const combinatedFilters = about.getCombinations(filteredData, true)
+        //const combinatedFilters = about.getCombinations(filteredData, true)
+        const combinatedFiltersDetails = about.getCombinations(filteredData)
         const defaultFilter = about.getCombinations(mandatoryFilters)
         var res = [];
-        combinatedFilters.forEach(function (it) {
+        /*combinatedFilters.forEach(function (it) {
             res.push(it.concat(defaultFilter))
-        })
+        })*/
         $scope.models.combinations = JSON.stringify({
-            filter: res,
+            //filter: res,
+            filter: combinatedFiltersDetails,
+            mandatory: mandatoryFilters,
             limit: {
                 min: 100,
                 max: 100,
