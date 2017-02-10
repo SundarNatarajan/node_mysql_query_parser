@@ -1,7 +1,7 @@
 const node_config = {}
 node_config.params_pattern = /\$.*?\}/gi
 
-myApp.controller('homeController', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
+myApp.controller('homeController', ['$scope', '$http', '$filter','uiGridConstants', function ($scope, $http, $filter, uiGridConstants) {
     //npm dependencies
     const _ = require('lodash');
     const fs = require('fs');
@@ -13,21 +13,28 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
     $scope.models = {
         isClicked: false,
         isQuerySaveAction: false,
+        isSaveJobClicked: false,    
         query: `Select * from Table  $P{Sundar} $P{mandatory} $P{filter}`,
         returnedParams: null,
         combinationPath: (path.join(__dirname, 'combinations.json')),
-        currentQueryPath : path.join(__dirname, 'jobs'),
+        currentQueryPath: path.join(__dirname, 'jobs'),
         jobName: ''
     }
 
     $scope.gridOptions = {
         enableColumnMenus: false,
+        enableFiltering: true,
         paginationPageSizes: [25, 50, 75],
         paginationPageSize: 10,
         columnDefs: [{ field: "column", cellClass: 'red', width: '50%', name: 'Column', enableCellEdit: false },
         {
             field: "type", width: '10%', name: 'Type', enableCellEdit: true,
             editableCellTemplate: 'ui-grid/dropdownEditor',
+            filter: {
+                term: '1',
+                type: uiGridConstants.filter.SELECT,
+                selectOptions: [{ value: '3', label: 'null' }, { value: '1', label: 'string' }, { value: '2', label: 'number' }]
+            },
             cellFilter: 'mapDataTypes', editDropdownValueLabel: 'dataTypes', editDropdownOptionsArray: [
                 { id: 1, dataTypes: 'string' },
                 { id: 2, dataTypes: 'number' },
@@ -37,6 +44,11 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
             field: "value", width: '30%', name: 'Value', enableCellEdit: true
         }, {
             field: "filterType", width: '10%', name: 'FilterType', enableCellEdit: true,
+            filter: {
+                term: '1',
+                type: uiGridConstants.filter.SELECT,
+                selectOptions: [{ value: '1', label: 'filter' }, { value: '2', label: 'mandatory' }]
+            },
             editableCellTemplate: 'ui-grid/dropdownEditor',
             cellFilter: 'mapType', editDropdownValueLabel: 'selection', editDropdownOptionsArray: [
                 { id: 1, selection: 'filter' },
@@ -45,7 +57,8 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
         }]
     };
 
-    $scope.parseParams = function () {
+    $scope.parseParams = function (e) {
+        e.preventDefault();
         $scope.models.isClicked = true;
         if ($scope.models.query) {
             const query = $scope.models.query;
@@ -96,7 +109,7 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
         const filteredData = $filter('filter')($scope.gridOptions.data, { filterType: 1 })
         const mandatoryFilters = $filter('filter')($scope.gridOptions.data, { filterType: 2 })
         //const combinatedFilters = about.getCombinations(filteredData, true)
-        const combinatedFiltersDetails = about.getCombinations(filteredData)        
+        const combinatedFiltersDetails = about.getCombinations(filteredData)
         const defaultFilter = about.getCombinations(mandatoryFilters)
         var res = [];
         /*combinatedFilters.forEach(function (it) {
@@ -176,6 +189,7 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
     }
 
     $scope.saveJob = function () {
+        $scope.models.isSaveJobClicked = true;
         if ($scope.models.combinations && $scope.models.jobName) {
             console.log(`${jobPath}\\${$scope.models.jobName}.json`)
             fs.readFile(`${jobPath}\\${$scope.models.jobName}.json`, function (err, fileContents) {

@@ -5,7 +5,7 @@
             <span class="error" ng-show="models.isClicked && myForm.frm_query.$error.required">Enter the Sql Query</span>
             </br>
             </br>
-            <button name="frm_btn" class="frm_btn" ng-click="parseParams()">Parse the Params</button>
+            <button name="frm_btn" class="frm_btn" ng-click="parseParams(this)">Parse the Params</button>
 
             </br>
             <h3>Parsed Params</h3>
@@ -20,7 +20,7 @@
             <!--<button name="frm_btn" class="frm_btn" ng-click="saveCombination()">Save Combination</button>-->
              </br>
             <input type="text" name="jobFileName" ng-model="models.jobName" required/>
-            <span class="error" ng-show="(myForm.frm_combinations.$error.required || myForm.jobFileName.$error.required)">Get the Combination / Enter the file name</span>
+            <span class="error" ng-show="(models.isSaveJobClicked ==true && (myForm.frm_combinations.$error.required || myForm.jobFileName.$error.required))">Get the Combination / Enter the file name</span>
             </br>
             <button name="frm_saveJob" class="frm_btn" ng-click="saveJob()">Save this Query to an Job</button>
             </br>
