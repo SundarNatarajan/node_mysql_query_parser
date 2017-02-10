@@ -1,7 +1,7 @@
 {
   "name": "electron-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "testappatesting",
   "main": "main.js",
   "dependencies": {
     "cjson": "^0.5.0",
@@ -15,8 +15,16 @@
     "electron": "^1.4.13"
   },
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron main.js",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "build": {
+    "appId": "com.example.electron-boilerplate",
+    "win": {
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Arrow-right-small.svg"
+    }
+  }
 }

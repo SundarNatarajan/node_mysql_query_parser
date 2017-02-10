@@ -1,3 +1,4 @@
 node_modules
 .vscode
 node_mysql_query_parser-win32-x64
+dist
