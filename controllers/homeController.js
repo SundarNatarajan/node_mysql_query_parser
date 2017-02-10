@@ -16,6 +16,7 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
         query: `Select * from Table  $P{Sundar} $P{mandatory} $P{filter}`,
         returnedParams: null,
         combinationPath: (path.join(__dirname, 'combinations.json')),
+        currentQueryPath : path.join(__dirname, 'jobs'),
         jobName: ''
     }
 
@@ -185,7 +186,7 @@ myApp.controller('homeController', ['$scope', '$http', '$filter', function ($sco
                     jobDetails = cjson.load(`${jobPath}\\${$scope.models.jobName}.json`)
                 }
                 jobDetails.push(JSON.parse($scope.models.combinations))
-
+                alert(`${jobPath}\\${$scope.models.jobName}.json`)
                 fs.writeFile(`${jobPath}\\${$scope.models.jobName}.json`, JSON.stringify(jobDetails), function (er) {
                     if (!err) {
                         console.log('Job saved Successfully')
