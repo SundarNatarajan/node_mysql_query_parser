@@ -1,0 +1,1 @@
+[{"filter":[{"column":"$P{Sundar}","value":"null"},{"column":"$P{mandatory}","value":"'null'"},{"column":"$P{filter}","value":"null"}],"mandatory":[],"limit":{"min":100,"max":100,"range":10},"title":"","query":"Select * from Table  $P{Sundar} $P{mandatory} $P{filter}"}]

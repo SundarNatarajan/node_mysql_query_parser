@@ -19,11 +19,13 @@
             <button name="frm_btn" class="frm_btn" ng-click="getCombinations()">Get the combinations</button>
             <!--<button name="frm_btn" class="frm_btn" ng-click="saveCombination()">Save Combination</button>-->
              </br>
+            <!--Path : {{models.currentQueryPath}}\{{models.jobName}}
+            </br>
             <input type="text" name="jobFileName" ng-model="models.jobName" required/>
             <span class="error" ng-show="(models.isSaveJobClicked ==true && (myForm.frm_combinations.$error.required || myForm.jobFileName.$error.required))">Get the Combination / Enter the file name</span>
             </br>
             <button name="frm_saveJob" class="frm_btn" ng-click="saveJob()">Save this Query to an Job</button>
-            </br>
+            </br>-->
         </div>
         <div>
             <textarea class="txtArea" name="frm_updatedQuery" readonly ng-model="models.updatedQuery" required></textarea>            
@@ -32,16 +34,16 @@
         </div>
         <div>
             </br>
-            <input type="text" name="pathName" ng-model="models.currentQueryPath" required/>
-            <input type="text" name="fileName" ng-model="models.currentQueryFile" required/>
+            Path :<input type="text" name="pathName" ng-model="models.currentQueryPath" required/>
+            </br>
+           File: <input type="text" name="fileName" ng-model="models.currentQueryFile" required/>
             <span ng-show="models.isQuerySaveAction && (myForm.frm_updatedQuery.$error.required || myForm.pathName.$error.required || myForm.fileName.$error.required)">Update the Params / Enter the Sql Query file details</span>
             </br>
             <button name="frm_btn" class="frm_btn" ng-click="saveQuery()">Save Query</button>
             </br>
         </div>
         </br>
-        {{models.error}}
         </br>
-        {{models.success}}
+        <!--{{models.success}}-->
     </form>
 </div>

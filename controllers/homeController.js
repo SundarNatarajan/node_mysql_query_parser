@@ -8,7 +8,7 @@ myApp.controller('homeController', ['$scope', '$http', '$filter','uiGridConstant
     const path = require('path')
     const about = require(path.join(__dirname, 'node', 'about.js'))
     const cjson = require('cjson')
-    const jobPath = path.join(__dirname, 'jobs')
+    // const jobPath = path.join(__dirname, 'jobs')
 
     $scope.models = {
         isClicked: false,
@@ -31,21 +31,21 @@ myApp.controller('homeController', ['$scope', '$http', '$filter','uiGridConstant
             field: "type", width: '10%', name: 'Type', enableCellEdit: true,
             editableCellTemplate: 'ui-grid/dropdownEditor',
             filter: {
-                term: '1',
+                term: null,
                 type: uiGridConstants.filter.SELECT,
                 selectOptions: [{ value: '3', label: 'null' }, { value: '1', label: 'string' }, { value: '2', label: 'number' }]
             },
             cellFilter: 'mapDataTypes', editDropdownValueLabel: 'dataTypes', editDropdownOptionsArray: [
+                { id: 3, dataTypes: 'null' },
                 { id: 1, dataTypes: 'string' },
-                { id: 2, dataTypes: 'number' },
-                { id: 3, dataTypes: 'null' }
+                { id: 2, dataTypes: 'number' }                
             ]
         }, {
             field: "value", width: '30%', name: 'Value', enableCellEdit: true
         }, {
             field: "filterType", width: '10%', name: 'FilterType', enableCellEdit: true,
             filter: {
-                term: '1',
+                term: null,
                 type: uiGridConstants.filter.SELECT,
                 selectOptions: [{ value: '1', label: 'filter' }, { value: '2', label: 'mandatory' }]
             },
@@ -58,7 +58,7 @@ myApp.controller('homeController', ['$scope', '$http', '$filter','uiGridConstant
     };
 
     $scope.parseParams = function (e) {
-        e.preventDefault();
+        // e.preventDefault();
         $scope.models.isClicked = true;
         if ($scope.models.query) {
             const query = $scope.models.query;
@@ -149,6 +149,7 @@ myApp.controller('homeController', ['$scope', '$http', '$filter','uiGridConstant
                 fs.writeFile($scope.models.combinationPath, res, function (er) {
                     if (err) {
                         $scope.models.error = err;
+                        alert($scope.models.error);
                     } else {
                         $scope.models.success = 'Combination File Saved Successfully';
                     }
@@ -165,15 +166,19 @@ myApp.controller('homeController', ['$scope', '$http', '$filter','uiGridConstant
                     if (err) {
                         if (err.code === "EEXIST") {
                             $scope.models.error = `${$scope.models.currentQueryFile}.sql already exists`;
+                            alert($scope.models.error);
                             return;
                         } else {
                             $scope.models.error = err;
+                            alert($scope.models.error);
                         }
                     } else {
                         fs.writeFile(`${$scope.models.currentQueryPath}\\${$scope.models.currentQueryFile}.sql`, $scope.models.updatedQuery, function (er) {
                             if (err) {
                                 $scope.models.error = err;
+                                alert($scope.models.error);
                             } else {
+                                alert(`${$scope.models.currentQueryPath}\\${$scope.models.currentQueryFile}.sql`)
                                 $scope.models.success = 'File Saved Successfully';
                             }
                         })
@@ -184,6 +189,7 @@ myApp.controller('homeController', ['$scope', '$http', '$filter','uiGridConstant
 
             } else {
                 $scope.models.error = `Check the path:${$scope.models.currentQueryPath} exists are not `
+                alert($scope.models.error);
             }
         }
     }
@@ -191,19 +197,20 @@ myApp.controller('homeController', ['$scope', '$http', '$filter','uiGridConstant
     $scope.saveJob = function () {
         $scope.models.isSaveJobClicked = true;
         if ($scope.models.combinations && $scope.models.jobName) {
-            console.log(`${jobPath}\\${$scope.models.jobName}.json`)
-            fs.readFile(`${jobPath}\\${$scope.models.jobName}.json`, function (err, fileContents) {
+            fs.readFile(`${models.currentQueryPath}\\${$scope.models.jobName}.json`, function (err, fileContents) {
                 let jobDetails = null;
                 if (err) {
                     jobDetails = []
                 } else {
-                    jobDetails = cjson.load(`${jobPath}\\${$scope.models.jobName}.json`)
+                    jobDetails = cjson.load(`${models.currentQueryPath}\\${$scope.models.jobName}.json`)
                 }
                 jobDetails.push(JSON.parse($scope.models.combinations))
-                alert(`${jobPath}\\${$scope.models.jobName}.json`)
-                fs.writeFile(`${jobPath}\\${$scope.models.jobName}.json`, JSON.stringify(jobDetails), function (er) {
+                alert(`${models.currentQueryPath}\\${$scope.models.jobName}.json`)
+                fs.writeFile(`${models.currentQueryPath}\\${$scope.models.jobName}.json`, JSON.stringify(jobDetails), function (er) {
                     if (!err) {
-                        console.log('Job saved Successfully')
+                        alert(`${models.currentQueryPath}\\${$scope.models.jobName}.json`);
+                    }else{
+                        alert(`Error: ${err}`);
                     }
                 })
             })
@@ -212,10 +219,9 @@ myApp.controller('homeController', ['$scope', '$http', '$filter','uiGridConstant
     /*node functions*/
 }]).filter('mapDataTypes', function () {
     var dataTypesHash = {
+        3: 'null',
         1: 'string',
-        2: 'number',
-        3: 'null'
-
+        2: 'number'
     };
 
     return function (input) {
