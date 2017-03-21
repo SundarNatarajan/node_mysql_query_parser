@@ -20,6 +20,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             url: '/about',
             templateUrl: './partials/about.html',
             controller: 'aboutController'
+        })
+
+        .state('encryption', {
+            url: '/encryption',
+            templateUrl: './partials/encryption.html',
+            controller: 'encryptionController'
         });
 
     $stateProvider.state('unsubscribe', {
